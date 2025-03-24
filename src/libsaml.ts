@@ -265,10 +265,12 @@ const libSaml = () => {
     */
     replaceTagsByValue(rawXML: string, tagValues: any): string {
       Object.keys(tagValues).forEach(t => {
-        rawXML = rawXML.replace(
-          new RegExp(`("?)\\{${t}\\}`, 'g'),
-          escapeTag(tagValues[t])
-        );
+        if (typeof tagValues[t] === 'string') {
+          rawXML = rawXML.replace(
+            new RegExp(`("?)\\{${t}\\}`, 'g'),
+            escapeTag(tagValues[t])
+          );
+        }
       });
       return rawXML;
     },
